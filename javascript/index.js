@@ -28,7 +28,7 @@ let wrongAudio = new Audio("./../assets/sounds/wrong.wav");
 const blockCards = numbers => {
     for (let i = 0; i <= 15; i++) {
         let blockCard = document.getElementById(`${i}`);
-        blockCard.innerHTML = `<img src="./../../assets/images/${numbers[i]}.png"/>`;
+        blockCard.innerHTML = `<img src="./../assets/images/${numbers[i]}.png"/>`;
         blockCard.disabled = true;
     }
 }
@@ -45,14 +45,14 @@ const flip = (elements, uncoveredCards) => {
     if (uncoveredCards === 1) {
         card1 = element;
         firstResult = numbers[position];
-        card1.innerHTML = `<img src="/assets/images/${firstResult}.png">`;
+        card1.innerHTML = `<img src="./../assets/images/${firstResult}.png">`;
         card1.disabled = true;
 
         clickAudio.play();
     } else if (uncoveredCards === 2) {
         card2 = element;
         secondResult = numbers[position];
-        card2.innerHTML = `<img src="/assets/images/${secondResult}.png">`;
+        card2.innerHTML = `<img src="./../assets/images/${secondResult}.png">`;
         card2.disabled = true;
 
         if (firstResult === secondResult) {
