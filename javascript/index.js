@@ -19,6 +19,12 @@ let secondResult = 0;
 let card1 = null;
 let card2 = null;
 
+let clickAudio = new Audio("./../assets/sounds/click.wav");
+let loseAudio = new Audio("./../assets/sounds/lose.wav");
+let rightAudio = new Audio("./../assets/sounds/right.wav");
+let winAudio = new Audio("./../assets/sounds/win.wav");
+let wrongAudio = new Audio("./../assets/sounds/wrong.wav");
+
 const blockCards = numbers => {
     for (let i = 0; i <= 15; i++) {
         let blockCard = document.getElementById(`${i}`);
@@ -39,19 +45,25 @@ const flip = (elements, uncoveredCards) => {
     if (uncoveredCards === 1) {
         card1 = element;
         firstResult = numbers[position];
-        card1.disabled = true;
         card1.innerHTML = `<img src="/assets/images/${firstResult}.png">`;
+        card1.disabled = true;
+
+        clickAudio.play();
     } else if (uncoveredCards === 2) {
         card2 = element;
         secondResult = numbers[position];
-        card2.disabled = true;
         card2.innerHTML = `<img src="/assets/images/${secondResult}.png">`;
+        card2.disabled = true;
 
         if (firstResult === secondResult) {
             firstResult = 0;
             secondResult = 0;
             uncoveredCards = 0;
+
+            rightAudio.play();
         } else {
+            wrongAudio.play();
+
             setTimeout(() => {
                 card1.innerHTML = ' ';
                 card2.innerHTML = ' ';
@@ -82,6 +94,8 @@ const init = () => {
                         clearInterval(timeCounter);
                         blockCards(numbers);
                         time.innerHTML = 'Lo siento el tiempo se acabo 😥';
+                        
+                        loseAudio.play();
                     }
                 }, 1000);
 
@@ -101,9 +115,12 @@ const init = () => {
 
                 if (totalAcerts === 8) {
                     clearInterval(timeCounter);
+
                     acerts.innerHTML += ' 😱';
                     time.innerHTML = `Fantastico, lo hiciste en ${(30 - reverseTime)} segundos 😎`;
                     moves.innerHTML += ' 🤙';
+
+                    winAudio.play();
                 }
             }
 
